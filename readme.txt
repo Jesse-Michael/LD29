@@ -1,0 +1,9 @@
+After a long break from (outside of work) development, I decided to jump back into games by participating in the 29th Ludum Dare competition. Ludum Dare is a competition where developers create a game based on a theme in one weekend. The theme is announced at the beginning of the weekend and it was "Beneath the Surface". It felt really good to be making games again, even though I didn't get very far in the short amount of time. 
+
+I used Unity for the first time on this project, and I fell in love almost immediately. It's never been so easy for me to trajectory my content, distinguish gameplay scenes. Unity allowed me to control everything I wanted to. It also made making animations incredibly easy. I also liked that I was able to stay in the C# language. 
+
+The gameplay behind "Beneath the Surface" is pretty simple. You play a hero that wields a bow and fends of a giant for as long as you can. To fire an arrow, click on the scene and drag the mouse as if you were pulling back the arrow on the bow. The game use the angle from where you started and ended clicking, as well as the distance of the two points, to calculate a trajectory for the arrow. You must hit the giant to stop him from destroying you. This game isn't as complete or as entertaining as I imagined it would be when starting the competition, but I did the best I could with the time I had. I'm very satisfied with my first Ludum Dare.
+
+I know my game isn't that great, but I hope playing it isn't a complete waist of time for someone out there.
+
+I hope that the limited time placed on this project will excuse the sloppy code.
