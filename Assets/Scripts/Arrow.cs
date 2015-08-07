@@ -17,6 +17,10 @@ public class Arrow : MonoBehaviour {
 		force.y *= speed * 3;
 		rigidbody2D.AddForce(force);
 		isFlying = true;
+
+		Debug.Log("direction" + direction.ToString());
+		Debug.Log("speed" + speed.ToString());
+		Debug.Log("force" + force.ToString());
     }
     
     // Update is called once per frame

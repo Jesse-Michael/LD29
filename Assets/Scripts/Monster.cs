@@ -52,7 +52,7 @@ public class Monster : MonoBehaviour {
 		if (!startActivate) {
 				startActivate = true;
 				anim.SetTrigger ("activate");
-				Camera.startShaking = true;
+				CameraScript.startShaking = true;
 		} else if (transform.position.y < .56f) {
 				transform.Translate (Vector3.up * 1.5f * Time.deltaTime);
 		} else {
@@ -78,7 +78,7 @@ public class Monster : MonoBehaviour {
 
 	void AttackClimax () {
 		float damage = Random.Range (5.0f, 8.0f);
-		Camera.startHit = true;
+		CameraScript.startHit = true;
 		Hero.GetHit(damage);
 	}
 

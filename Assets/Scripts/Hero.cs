@@ -33,6 +33,11 @@ public class Hero : MonoBehaviour {
 	static GUITexture damageTexture;
 	public GUITexture textureType;
 
+	public GameObject aimingPress;
+	public GameObject aimingRelease;
+	GameObject pressInstance;
+	GameObject releaseInstance;
+
 
 	// Use this for initialization
 	void Start () {
@@ -89,7 +94,9 @@ public class Hero : MonoBehaviour {
 				startPos = Input.mousePosition;
 				hand.ShowHand ();
 
-
+			
+			pressInstance = GameObject.Instantiate (aimingPress, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
+			releaseInstance = GameObject.Instantiate (aimingRelease, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
 		} else {
 			OnMouseDragF();
 		}
@@ -100,6 +107,9 @@ public class Hero : MonoBehaviour {
 			bowAnim.SetTrigger("release");
 			firing = false;
 			fired = true;
+
+			Destroy(pressInstance);
+			Destroy(releaseInstance);
 
 
 			GameObject[] myArrows = GameObject.FindGameObjectsWithTag("Arrow");
@@ -113,6 +123,7 @@ public class Hero : MonoBehaviour {
 					distance = Mathf.Max(300.0f, distance);
 					distance = Mathf.Min(800.0f, distance);
 					ar.Launch(direction, distance);
+
 				}
 			}
 
@@ -129,13 +140,18 @@ public class Hero : MonoBehaviour {
 			angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 			distance = Vector2.Distance(endPos, startPos);
 
-			//Debug.Log(angle.ToString());
-			//Debug.Log(direction.ToString());
+
 			if(arrowInstance != null)
 			{
 				arrowInstance.transform.position = arrowSpawn.position;
 				arrowInstance.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 			}
+
+			if(releaseInstance != null)
+			{
+				releaseInstance.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			}
+
 
 			bowTran.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
