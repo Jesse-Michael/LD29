@@ -15,7 +15,7 @@ public class Arrow : MonoBehaviour {
 		Vector2 force = direction.normalized;
 		force.x *= speed;
 		force.y *= speed * 3;
-		rigidbody2D.AddForce(force);
+		GetComponent<Rigidbody2D>().AddForce(force);
 		isFlying = true;
 
 		Debug.Log("direction" + direction.ToString());
@@ -41,7 +41,7 @@ public class Arrow : MonoBehaviour {
 
 
 	void TryHit() {
-		Collider2D[] colliders = Physics2D.OverlapCircleAll (collider2D.transform.position, .15f);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll (GetComponent<Collider2D>().transform.position, .15f);
 
 		foreach (Collider2D collider in colliders) {
 			if(collider.tag == "Monster")

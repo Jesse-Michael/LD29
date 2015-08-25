@@ -70,7 +70,7 @@ public class Hero : MonoBehaviour {
 			if (reloadTime <= 0.0f) {
 				fired = false;
 				reloadTime = 1.5f;
-				arrowTran.renderer.enabled = true;
+				arrowTran.GetComponent<Renderer>().enabled = true;
 			}
 		}   
 
@@ -88,7 +88,7 @@ public class Hero : MonoBehaviour {
 		if (!fired && !firing) {
 
 				arrowInstance = Instantiate (arrowType, arrowSpawn.position, Quaternion.Euler (new Vector3 (0, 0, 0))) as Rigidbody2D;
-				arrowTran.renderer.enabled = false;
+				arrowTran.GetComponent<Renderer>().enabled = false;
 				bowAnim.SetTrigger ("pull");
 				firing = true;
 				startPos = Input.mousePosition;
