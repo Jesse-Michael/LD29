@@ -95,8 +95,8 @@ public class Hero : MonoBehaviour {
 				hand.ShowHand ();
 
 			
-			pressInstance = GameObject.Instantiate (aimingPress, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
-			releaseInstance = GameObject.Instantiate (aimingRelease, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
+			//pressInstance = GameObject.Instantiate (aimingPress, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
+			//releaseInstance = GameObject.Instantiate (aimingRelease, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
 		} else {
 			OnMouseDragF();
 		}
