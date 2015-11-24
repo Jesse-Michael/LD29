@@ -3,8 +3,15 @@ using System.Collections;
 
 public class Arrow : MonoBehaviour {
 
-	float flyingTime = 0.6f;
+	float flyingTime = 0.3f;
 	public bool isFlying = false;
+
+	
+	AudioSource audioPlayer;
+	AudioClip arrow1;
+	AudioClip arrow2;
+	AudioClip arrow3;
+	AudioClip[] arrowBank;
 
 	// Use this for initialization
 	void Start () {
@@ -17,18 +24,24 @@ public class Arrow : MonoBehaviour {
 		force.y *= speed * 3;
 		GetComponent<Rigidbody2D>().AddForce(force);
 		isFlying = true;
-
-		Debug.Log("direction" + direction.ToString());
-		Debug.Log("speed" + speed.ToString());
-		Debug.Log("force" + force.ToString());
+		
+		audioPlayer = gameObject.AddComponent<AudioSource>();
+		arrow1 = Resources.Load<AudioClip>("arrow1");
+		arrow2 = Resources.Load<AudioClip>("arrow2");
+		arrow3 = Resources.Load<AudioClip>("arrow3");
+		arrowBank = new AudioClip[]{ arrow1, arrow2, arrow3 };
+		
+		int randomHit = (int)Random.Range (0.0f, 2.99f);
+		audioPlayer.PlayOneShot (arrowBank [randomHit]);
     }
     
     // Update is called once per frame
 	void Update () {
 		if (isFlying) {
+			GetComponent<Rigidbody2D>().gravityScale = 1.11f;
 			flyingTime -= Time.deltaTime;
 			transform.Rotate(new Vector3(0, 0, -.25f));
-			if (flyingTime <= 0.0f) {
+			if(flyingTime <= 0.0f) {
 				TryHit();
 			}
 		}

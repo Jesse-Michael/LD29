@@ -35,8 +35,6 @@ public class Hero : MonoBehaviour {
 
 	public GameObject aimingPress;
 	public GameObject aimingRelease;
-	GameObject pressInstance;
-	GameObject releaseInstance;
 
 
 	// Use this for initialization
@@ -86,17 +84,12 @@ public class Hero : MonoBehaviour {
 
 	void OnMouseDownF() {
 		if (!fired && !firing) {
-
 				arrowInstance = Instantiate (arrowType, arrowSpawn.position, Quaternion.Euler (new Vector3 (0, 0, 0))) as Rigidbody2D;
 				arrowTran.GetComponent<Renderer>().enabled = false;
 				bowAnim.SetTrigger ("pull");
 				firing = true;
 				startPos = Input.mousePosition;
 				hand.ShowHand ();
-
-			
-			//pressInstance = GameObject.Instantiate (aimingPress, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
-			//releaseInstance = GameObject.Instantiate (aimingRelease, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.Euler (new Vector3 (0, 0, 0))) as GameObject;
 		} else {
 			OnMouseDragF();
 		}
@@ -107,10 +100,6 @@ public class Hero : MonoBehaviour {
 			bowAnim.SetTrigger("release");
 			firing = false;
 			fired = true;
-
-			Destroy(pressInstance);
-			Destroy(releaseInstance);
-
 
 			GameObject[] myArrows = GameObject.FindGameObjectsWithTag("Arrow");
 
@@ -140,18 +129,11 @@ public class Hero : MonoBehaviour {
 			angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 			distance = Vector2.Distance(endPos, startPos);
 
-
 			if(arrowInstance != null)
 			{
 				arrowInstance.transform.position = arrowSpawn.position;
 				arrowInstance.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 			}
-
-			if(releaseInstance != null)
-			{
-				releaseInstance.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			}
-
 
 			bowTran.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		}
@@ -165,6 +147,10 @@ public class Hero : MonoBehaviour {
 
 		damageColor = new Color (1,1,1,(40.0f - health) / 100f);
 		damageTexture.color = damageColor;
+
+		#if(UNITY_ANDROID || UNITY_IOS || UNITY_WP8) 
+			Handheld.Vibrate();
+		#endif
 
 		if (health <= 0.0f) {
 			GameOver();
