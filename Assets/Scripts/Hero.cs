@@ -40,9 +40,9 @@ public class Hero : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		arrowTran = transform.FindChild("heroarrow");
-		bowTran = transform.FindChild("HeroArm");
-		arrowSpawn = bowTran.FindChild("heroarm").FindChild("arrowSpawn");
+		arrowTran = transform.Find("heroarrow");
+		bowTran = transform.Find("HeroArm");
+		arrowSpawn = bowTran.Find("heroarm").Find("arrowSpawn");
 		bowAnim = bowTran.GetComponent<Animator>();
 		hand = bowTran.GetComponent ("HeroArm") as HeroArm;
 		hand.HideHand();
