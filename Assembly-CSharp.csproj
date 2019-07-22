@@ -61,7 +61,6 @@
      <Compile Include="Assets\Scripts\Hero.cs" />
      <Compile Include="Assets\Scripts\HeroArm.cs" />
      <Compile Include="Assets\Scripts\Monster.cs" />
-     <None Include="Assets\Textures\credittext.txt" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/jesse.michael/go/src/github.com/jesse0michael/LD29/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

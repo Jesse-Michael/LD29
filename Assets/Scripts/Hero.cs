@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -38,6 +39,10 @@ public class Hero : MonoBehaviour
     public GameObject aimingRelease;
 
 
+    private GameObject i_aimingPress;
+    private GameObject i_aimingRelease;
+    private LineRenderer line;
+
     // Use this for initialization
     void Start()
     {
@@ -48,6 +53,7 @@ public class Hero : MonoBehaviour
         bowAnim = bowTran.GetComponent<Animator>();
         hand = bowTran.GetComponent("HeroArm") as HeroArm;
         hand.HideHand();
+        line = GetComponent<LineRenderer>();
 
         damageTexture = GameObject.Instantiate(textureType, new Vector3(0, 0, 0), Quaternion.Euler(new Vector3(0, 0, 0))) as GUITexture;
         damageColor = new Color(1, 1, 1, 0);
@@ -95,11 +101,17 @@ public class Hero : MonoBehaviour
     {
         if (!fired && !firing)
         {
+            Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             arrowInstance = Instantiate(arrowType, arrowSpawn.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
             arrowTran.GetComponent<Renderer>().enabled = false;
+            i_aimingPress = Instantiate(aimingPress, new Vector3(mouse.x, mouse.y, -1), Quaternion.Euler(new Vector3(0, 0, 0)));
+            i_aimingRelease = Instantiate(aimingRelease, new Vector3(mouse.x, mouse.y, -1), Quaternion.Euler(new Vector3(0, 0, 0)));
+            line.enabled = true;
+            line.SetPosition(0, i_aimingPress.transform.position);
+            line.SetPosition(1, i_aimingRelease.transform.position);
             bowAnim.SetTrigger("pull");
             firing = true;
-            startPos = Input.mousePosition;
+            startPos = mouse;
             hand.ShowHand();
         }
         else
@@ -115,6 +127,9 @@ public class Hero : MonoBehaviour
             bowAnim.SetTrigger("release");
             firing = false;
             fired = true;
+            line.enabled = false;
+            Destroy(i_aimingPress);
+            Destroy(i_aimingRelease);
 
             GameObject[] myArrows = GameObject.FindGameObjectsWithTag("Arrow");
 
@@ -139,7 +154,10 @@ public class Hero : MonoBehaviour
     {
         if (firing)
         {
-            endPos = Input.mousePosition;
+            Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            endPos = mouse;
+            i_aimingRelease.transform.position = mouse;
+            line.SetPosition(1, new Vector3(mouse.x, mouse.y, -1));
 
             direction = (startPos - endPos);
 
@@ -178,6 +196,6 @@ public class Hero : MonoBehaviour
 
     static void GameOver()
     {
-        Application.LoadLevel("GameOver");
+        SceneManager.LoadScene("Menu");
     }
 }

@@ -1,36 +1,30 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class Button : MonoBehaviour {
+public class Button : MonoBehaviour
+{
 
 
-	void Start(){
+    void Start()
+    {
 
-	}
+    }
 
-	void Update () {
+    void Update()
+    {
 
-	}
+    }
 
-	void OnMouseUpAsButton () {
-	
-		switch (name) {
-			case "play":
-				Application.LoadLevel("Game");
-				break;
+    void OnMouseUpAsButton()
+    {
 
-			case "credits":
-				Application.LoadLevel("Credits");
-				break;
+        switch (name)
+        {
+            case "play":
+                SceneManager.LoadScene("Game");
+                break;
 
-			case "creditstext":
-				Application.LoadLevel("Menu");
-				break;
-
-			case "retry":
-				Application.LoadLevel("Game");
-				break;
-
-		}
-	}
+        }
+    }
 }
